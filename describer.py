@@ -1,5 +1,33 @@
-from transformers import pipeline
+from transformers import (AutoTokenizer,
+                          AutoModelForCausalLM,
+                          pipeline)
 import pyttsx3
+import json
+
+config_data = json.load(open("config.json"))
+HF_TOKEN = config_data["HF_TOKEN"]
+
+model_name = "meta-llama/Llama-3.2-1B"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name,
+                                          token=HF_TOKEN)
+
+tokenizer.pad_token = tokenizer.eos_token
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    device_map="auto",
+    token=HF_TOKEN
+)
+
+text_generator = pipeline(
+    "text-generation",
+    model=model,
+    tokenizer=tokenizer,
+    return_full_text=False,
+    max_new_tokens=50
+)
+
 
 def create_desc(video_data):
   # Construct a description prompt based on the video data (list of tuples)
@@ -19,13 +47,12 @@ def create_desc(video_data):
   scene_description = "In the surroundings, there are " + ", ".join(object_descriptions) + "."
 
   # Use the scene description in the LLM prompt
-  prompt = f"Based on the following scene description: '{scene_description}', write a detailed description of the surroundings."
+  prompt = f"Based on the following description of a picture: '{scene_description}', describe the environment and be as accurate as possible."
 
-  pipe = pipeline("text-generation", model="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
-  response = pipe(prompt)
-  generated_text = response[0]['generated_text']
-  print(generated_text)
-  return generated_text
+  sequences = text_generator(prompt)
+  gen_text = sequences[0]["generated_text"]
+  print(gen_text)
+  return gen_text
 
 def tts(text):
   # Initialize pyttsx3 engine for Text-to-Speech
