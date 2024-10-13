@@ -1,6 +1,6 @@
 **Description:**
 
-This is a AI powered visual to audio program that takes in camera inputs and converts it to speech. It is made for visually impared people, who can use this program to view the world around them with the click of a button and know what is around them.
+This is a AI powered visual to audio program that takes in camera inputs and converts it to speech. It is made for visually impaired people, who can use this program to view the world around them with the click of a button and know what is around them.
 
 **Technical:**
 
