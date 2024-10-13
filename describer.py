@@ -1,4 +1,4 @@
-from openvino_genai import LLMPipeline
+from transformers import pipeline
 import pyttsx3
 
 def create_desc(video_data):
@@ -8,7 +8,7 @@ def create_desc(video_data):
 
   # Create a string that describes the surroundings
   object_descriptions = []
-  for obj_name, obj_count in video_data:
+  for obj_name, obj_count in video_data.items():
     # Singular or plural depending on the count
     if obj_count == 1:
       object_descriptions.append(f"1 {obj_name}")
@@ -21,9 +21,11 @@ def create_desc(video_data):
   # Use the scene description in the LLM prompt
   prompt = f"Based on the following scene description: '{scene_description}', write a detailed description of the surroundings."
 
-  pipe = LLMPipeline()
-  res = pipe.generate(prompt)
-  return res
+  pipe = pipeline("text-generation", model="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
+  response = pipe(prompt)
+  generated_text = response[0]['generated_text']
+  print(generated_text)
+  return generated_text
 
 def tts(text):
   # Initialize pyttsx3 engine for Text-to-Speech
