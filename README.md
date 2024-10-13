@@ -11,3 +11,6 @@ To do this, you need to go to System Settings > Search Camera Options (alternate
 
 You are also able to connect your iPhone camera if you are using a Mac device. 
 To do this, you need to go to Settings > General > AirPlay & Handoff > Toggle Handoff & Contuinity Camera on.
+
+**Authors:**
+Ayden Carter, David Lym, Raj Patel
