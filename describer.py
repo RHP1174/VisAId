@@ -25,7 +25,8 @@ text_generator = pipeline(
     model=model,
     tokenizer=tokenizer,
     return_full_text=False,
-    max_new_tokens=50
+    max_new_tokens=50,
+    temperature = .25
 )
 
 
@@ -47,7 +48,7 @@ def create_desc(video_data):
   scene_description = "In the surroundings, there are " + ", ".join(object_descriptions) + "."
 
   # Use the scene description in the LLM prompt
-  prompt = f"Based on the following description of a picture: '{scene_description}', describe the environment and be as accurate as possible."
+  prompt = f"Based on the following description of a picture: '{scene_description}', talk about where you would find these items in a real-world environment."
 
   sequences = text_generator(prompt)
   gen_text = sequences[0]["generated_text"]
