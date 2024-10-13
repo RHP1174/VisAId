@@ -6,3 +6,4 @@ res = model(0, show = True)
 for results in res:
   boxes = results.boxes
   classes = results.names
+  conf = results.conf
