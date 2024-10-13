@@ -1,5 +1,5 @@
-accelerate==0.29.3
-transformers==4.40.0
+accelerate==1.0.1
+transformers==4.45.2
 pyttsx3==2.98
-ultralytics==8.3.11
+ultralytics==8.3.12
 opencv-python==4.10.0.84
