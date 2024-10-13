@@ -1,11 +1,9 @@
 from ultralytics import YOLO
 
-def process_results(model_path, source=0):
+def process_results():
     # Load the YOLO model
-    model = YOLO(model_path)
-
-    # Run the model
-    res = model(source, show=True)
+    model = YOLO("yolo11n.pt")
+    res = model(0, show = True)
 
     # List to store detected objects and confidence scores
     detected_objects = []
