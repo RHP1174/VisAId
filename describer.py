@@ -15,18 +15,18 @@ tokenizer = AutoTokenizer.from_pretrained(model_name,
 tokenizer.pad_token = tokenizer.eos_token
 
 model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    device_map="auto",
-    token=HF_TOKEN
+  model_name,
+  device_map="auto",
+  token=HF_TOKEN
 )
 
 text_generator = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    return_full_text=False,
-    max_new_tokens=50,
-    temperature = .25
+  "text-generation",
+  model=model,
+  tokenizer=tokenizer,
+  return_full_text=False,
+  max_new_tokens=60,
+  temperature = .25
 )
 
 
@@ -48,7 +48,7 @@ def create_desc(video_data):
   scene_description = "In the surroundings, there are " + ", ".join(object_descriptions) + "."
 
   # Use the scene description in the LLM prompt
-  prompt = f"Based on the following description of a picture: '{scene_description}', talk about where you would find these items in a real-world environment."
+  prompt = f"Based on the following description of a picture: '{scene_description}', describe the environment you have gotten and what is in the environment."
 
   sequences = text_generator(prompt)
   gen_text = sequences[0]["generated_text"]
